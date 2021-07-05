@@ -14,7 +14,7 @@
       >
         <div class="view">
           <!-- 默认是checkbox选中 -->
-          <input class="toggle" type="checkbox" checked />
+          <input class="toggle" type="checkbox" @click="clickStatus" />
           <label>{{ item.value }}</label>
           <button class="destroy"></button>
         </div>
@@ -39,6 +39,17 @@ export default {
       showList: this.$route.query.showList,
       //   test: this.$route.query.test,
     };
+  },
+  mounted() {
+    console.log(this.showList);
+    this.showList = this.$route.query.showList;
+    // this.test = this.$route.query.test;
+  },
+  methods: {
+    clickStatus($event, index) {
+      this.showList[index].clickStatus = $event.target.checked;
+      // console.log(this.all_list);
+    },
   },
 };
 </script>

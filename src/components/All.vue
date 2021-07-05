@@ -7,14 +7,15 @@
       <!-- These are here just to show the structure of the list items -->
       <!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
       <!-- li的completed是在字体上加上下划线 -->
-      <li
-        class="completed"
-        v-for="(item, index) in $route.query.showList"
-        :key="index"
-      >
+      <li class="completed" v-for="(item, index) in showList" :key="index">
         <div class="view">
           <!-- 默认是checkbox选中 -->
-          <input class="toggle" type="checkbox" checked />
+          <input
+            class="toggle"
+            type="checkbox"
+            unchecked
+            @click="clickStatus"
+          />
           <label>{{ item.value }}</label>
           <button class="destroy"></button>
         </div>
@@ -36,9 +37,24 @@ export default {
   name: "All",
   data() {
     return {
-      showList: this.$route.query.showList,
-      test: this.$route.query.test,
+      showList: [],
+      // test,
     };
+  },
+  methods: {
+    clickStatus($event, index) {
+      console.log(this.showList);
+      this.showList[index].clickStatus = $event.target.checked;
+      // console.log(this.all_list);
+    },
+  },
+  updated() {
+    console.log(this.showList);
+    this.showList = this.$route.query.showList;
+    // this.test = this.$route.query.test;
+  },
+  created() {
+    console.log(this.showList);
   },
 };
 </script>
